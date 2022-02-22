@@ -1,13 +1,8 @@
 package softing.ubah4ukdev.mymovies.ui.settings
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import softing.ubah4ukdev.mymovies.ui.base.BaseViewModel
 
-class SettingsViewModel : ViewModel() {
+class SettingsViewModel : BaseViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is settings Fragment"
-    }
-    val text: LiveData<String> = _text
+    override fun handleError(throwable: Throwable) {}
 }

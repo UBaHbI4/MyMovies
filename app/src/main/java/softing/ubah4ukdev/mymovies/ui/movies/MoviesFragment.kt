@@ -4,37 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import softing.ubah4ukdev.mymovies.R
 import softing.ubah4ukdev.mymovies.databinding.FragmentMoviesBinding
+import softing.ubah4ukdev.mymovies.ui.base.BaseFragment
+import by.kirich1409.viewbindingdelegate.viewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import softing.ubah4ukdev.mymovies.domain.IAppState
 
-class MoviesFragment : Fragment() {
+class MoviesFragment() : BaseFragment<FragmentMoviesBinding>(R.layout.fragment_movies) {
 
-    private var _binding: FragmentMoviesBinding? = null
+    val viewModel: MoviesViewModel by viewModel()
 
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(MoviesViewModel::class.java)
-
-        _binding = FragmentMoviesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun initListeners() {}
+    override fun initObservers() {}
+    override fun renderData(result: IAppState) {}
 }

@@ -1,13 +1,8 @@
 package softing.ubah4ukdev.mymovies.ui.movies
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import softing.ubah4ukdev.mymovies.ui.base.BaseViewModel
 
-class MoviesViewModel : ViewModel() {
+class MoviesViewModel : BaseViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is movies Fragment"
-    }
-    val text: LiveData<String> = _text
+    override fun handleError(throwable: Throwable) {}
 }

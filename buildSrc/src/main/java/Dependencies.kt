@@ -21,6 +21,12 @@ object LibVersion {
     const val NAVIGATION_FRAGMENT_VERSION = "2.4.1"
     const val NAVIGATION_UI_KTX_VERSION = "2.4.1"
 
+    // ViewBindingPropertyDelegate
+    const val VIEW_BINDING_DELEGATE_VERSION = "1.5.6"
+
+    // Koin
+    const val KOIN_VERSION = "3.1.5"
+
     // Tests
     const val JUNIT_VERSION = "4.13.2"
     const val TEST_EXT_JUNIT_VERSION = "1.1.3"
@@ -48,6 +54,19 @@ object LifeCycle {
         "androidx.lifecycle:lifecycle-livedata-ktx:${LibVersion.LIFECYCLE_VERSION}"
     const val VIEW_MODEL_KTX =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${LibVersion.LIFECYCLE_VERSION}"
+}
+
+object ViewBindingDelegate {
+    const val DELEGATE =
+        "com.github.kirich1409:viewbindingpropertydelegate:${LibVersion.VIEW_BINDING_DELEGATE_VERSION}"
+}
+
+object Koin {
+    const val CORE = "io.insert-koin:koin-core:${LibVersion.KOIN_VERSION}"
+    const val ANDROID = "io.insert-koin:koin-android:${LibVersion.KOIN_VERSION}"
+    const val ANDROID_COMPAT = "io.insert-koin:koin-android-compat:${LibVersion.KOIN_VERSION}"
+    const val TEST = "io.insert-koin:koin-test:${LibVersion.KOIN_VERSION}"
+    const val TEST_JUNIT4 = "io.insert-koin:koin-test-junit4:${LibVersion.KOIN_VERSION}"
 }
 
 object Tests {
