@@ -1,7 +1,6 @@
 package softing.ubah4ukdev.mymovies.ui
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -14,7 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import softing.ubah4ukdev.mymovies.R
 import softing.ubah4ukdev.mymovies.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity(R.layout.activity_main), ToolbarListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val viewBinding: ActivityMainBinding by viewBinding()
@@ -26,6 +25,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         setSupportActionBar(viewBinding.appBarMain.toolbar)
 
+        initNavigation()
+    }
+
+    private fun initNavigation() {
         val drawerLayout: DrawerLayout = viewBinding.drawerLayout
         val navView: NavigationView = viewBinding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -38,13 +41,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navView.setupWithNavController(navController)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun showToolBar(isVisible: Boolean) {
+        if (isVisible) {
+            this.supportActionBar?.show()
+        } else {
+            this.supportActionBar?.hide()
+        }
     }
 }

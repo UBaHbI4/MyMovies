@@ -39,7 +39,6 @@ abstract class BaseFragment<VB : ViewBinding>(
      * Инициализация подписок
      */
     abstract fun initObservers()
-
     abstract fun renderData(result: IAppState)
 
     override fun onCreateView(
@@ -57,6 +56,8 @@ abstract class BaseFragment<VB : ViewBinding>(
                 binding = it.invoke(null, layoutInflater, container, false) as VB
             }
 
+        initObservers()
+        initListeners()
         return viewBinding.root
     }
 

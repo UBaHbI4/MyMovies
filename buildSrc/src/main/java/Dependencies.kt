@@ -27,6 +27,15 @@ object LibVersion {
     // Koin
     const val KOIN_VERSION = "3.1.5"
 
+    // Retrofit 2
+    const val RETROFIT2_VERSION = "2.9.0"
+    const val OKHTTP3_LOGGING_VERSION = "4.9.1"
+    const val RXJAVA2_ADAPTER_VERSION = "1.0.0"
+    const val COROUTINES_ADAPTER = "0.9.2"
+
+    // Glide
+    const val GLIDE_VERSION = "4.12.0"
+
     // Tests
     const val JUNIT_VERSION = "4.13.2"
     const val TEST_EXT_JUNIT_VERSION = "1.1.3"
@@ -67,6 +76,25 @@ object Koin {
     const val ANDROID_COMPAT = "io.insert-koin:koin-android-compat:${LibVersion.KOIN_VERSION}"
     const val TEST = "io.insert-koin:koin-test:${LibVersion.KOIN_VERSION}"
     const val TEST_JUNIT4 = "io.insert-koin:koin-test-junit4:${LibVersion.KOIN_VERSION}"
+}
+
+object Retrofit2 {
+    const val RETROFIT = "com.squareup.retrofit2:retrofit:${LibVersion.RETROFIT2_VERSION}"
+    const val CONVERTER_JSON =
+        "com.squareup.retrofit2:converter-gson:${LibVersion.RETROFIT2_VERSION}"
+    const val LOGGING_INTERCEPTOR =
+        "com.squareup.okhttp3:logging-interceptor:${LibVersion.OKHTTP3_LOGGING_VERSION}"
+    const val RXJAVA2_ADAPTER =
+        "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${LibVersion.RXJAVA2_ADAPTER_VERSION}"
+    const val COROUTINES_ADAPTER =
+        "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${LibVersion.COROUTINES_ADAPTER}"
+}
+
+object Glide {
+    const val COMPILER = "com.github.bumptech.glide:compiler:${LibVersion.GLIDE_VERSION}"
+    const val GLIDE = "com.github.bumptech.glide:glide:${LibVersion.GLIDE_VERSION}"
+    const val GLIDE_OKHTTP3 =
+        "com.github.bumptech.glide:okhttp3-integration:${LibVersion.GLIDE_VERSION}"
 }
 
 object Tests {
