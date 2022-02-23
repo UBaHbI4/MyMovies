@@ -90,9 +90,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             ratingValue.text = popular.toString()
             ratingProgress.setIndicatorColor(getColorByValue(popular))
 
-            toDateString(resultResponse.releaseDate)?.let {
-                release.text = it
+            resultResponse.releaseDate?.let { it ->
+                toDateString(it)?.let {
+                    if (it.isNotEmpty()) {
+                        release.text = it
+                    }
+                }
             }
+
             resultResponse.runtime?.let {
                 duration.text = durationToString(it)
             }

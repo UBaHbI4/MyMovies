@@ -20,6 +20,7 @@ import softing.ubah4ukdev.mymovies.domain.repository.MovieRepository
 import softing.ubah4ukdev.mymovies.domain.usecases.GetActorsUseCase
 import softing.ubah4ukdev.mymovies.domain.usecases.GetMovieDetailByIdUseCase
 import softing.ubah4ukdev.mymovies.domain.usecases.GetMoviesTopRatedUseCase
+import softing.ubah4ukdev.mymovies.domain.usecases.SearchMoviesUseCase
 import softing.ubah4ukdev.mymovies.ui.detail.DetailViewModel
 import softing.ubah4ukdev.mymovies.ui.movies.MoviesViewModel
 import softing.ubah4ukdev.mymovies.ui.settings.SettingsViewModel
@@ -44,7 +45,8 @@ object Di {
 
         viewModel() {
             MoviesViewModel(
-                getMoviesTopRatedUseCase = get()
+                getMoviesTopRatedUseCase = get(),
+                searchMoviesUseCase = get()
             )
         }
 
@@ -121,6 +123,9 @@ object Di {
         factory<GetActorsUseCase> {
             GetActorsUseCase(repository = get())
         }
-    }
 
+        factory<SearchMoviesUseCase> {
+            SearchMoviesUseCase(repository = get())
+        }
+    }
 }

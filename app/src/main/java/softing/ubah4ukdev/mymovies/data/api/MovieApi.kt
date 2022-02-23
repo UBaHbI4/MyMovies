@@ -25,19 +25,18 @@ import softing.ubah4ukdev.mymovies.domain.models.MoviesResponse
  */
 interface MovieApi {
 
-    @GET("top_rated?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU")
+    @GET("movie/top_rated?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU")
     fun getMoviesTopRatedAsync(
         @Query("include_adult") adult: Boolean,
         @Query("page") page: Int
     ): Deferred<MoviesResponse>
 
-    @GET("{movie_id}?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU")
-    fun getMovieDetailByIdAsync(
-        @Path("movie_id") movieId: Int
-    ): Deferred<MovieResponse>
+    @GET("movie/{movie_id}?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU")
+    fun getMovieDetailByIdAsync(@Path("movie_id") movieId: Int): Deferred<MovieResponse>
 
-    @GET("{movie_id}/casts?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU")
-    fun getActorsListAsync(
-        @Path("movie_id") movieId: Int
-    ): Deferred<ActorsResponse>
+    @GET("movie/{movie_id}/casts?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU")
+    fun getActorsListAsync(@Path("movie_id") movieId: Int): Deferred<ActorsResponse>
+
+    @GET("search/movie?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru-RU")
+    fun searchMovieAsync(@Query("query") query: String): Deferred<MoviesResponse>
 }
