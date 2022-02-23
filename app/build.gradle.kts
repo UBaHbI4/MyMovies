@@ -15,14 +15,14 @@ android {
 
     signingConfigs {
         create("releaseSign")
-                {
-                    val properties = Properties()
-                    properties.load(FileInputStream(file("./../conf.properties")))
-                    storeFile = file("./../key.jks")
-                    storePassword = properties.getProperty("storePassword", "")
-                    keyAlias = properties.getProperty("keyAlias", "")
-                    keyPassword = properties.getProperty("keyPassword", "")
-                }
+        {
+            val properties = Properties()
+            properties.load(FileInputStream(file("./../conf.properties")))
+            storeFile = file("./../key.jks")
+            storePassword = properties.getProperty("storePassword", "")
+            keyAlias = properties.getProperty("keyAlias", "")
+            keyPassword = properties.getProperty("keyPassword", "")
+        }
     }
 
     defaultConfig {
@@ -39,7 +39,7 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("releaseSign")
         }
@@ -67,6 +67,16 @@ android {
     buildTypes.forEach {
         val properties = Properties()
         properties.load(FileInputStream(file("./../conf.properties")))
+
+        //TheMovieDb https://developers.themoviedb.org/3/getting-started/introduction
+        val movieApiKey = properties.getProperty("movies_api_key", "")
+        it.buildConfigField("String", "MOVIE_API_KEY", movieApiKey)
+        val movieBaseUrl = properties.getProperty("movies_base_url", "")
+        it.buildConfigField("String", "MOVIE_BASE_URL", movieBaseUrl)
+        val posterPath = properties.getProperty("movies_poster_path", "")
+        it.buildConfigField("String", "MOVIE_POSTER_PATH", posterPath)
+        val backDropPath = properties.getProperty("movies_back_drop_path", "")
+        it.buildConfigField("String", "MOVIE_BACKDROP_PATH", backDropPath)
     }
 }
 
@@ -84,6 +94,27 @@ dependencies {
     // LifeCycle
     implementation(LifeCycle.LIVEDATA_KTX)
     implementation(LifeCycle.VIEW_MODEL_KTX)
+
+    // ViewBindingPropertyDelegate
+    implementation(ViewBindingDelegate.DELEGATE)
+
+    // Koin
+    implementation(Koin.ANDROID)
+    implementation(Koin.ANDROID_COMPAT)
+    implementation(Koin.CORE)
+    implementation(Koin.TEST)
+    implementation(Koin.TEST_JUNIT4)
+
+    // Glide
+    implementation(Glide.COMPILER)
+    implementation(Glide.GLIDE)
+    implementation(Glide.GLIDE_OKHTTP3)
+
+    // Retrofit
+    implementation(Retrofit2.RETROFIT)
+    implementation(Retrofit2.CONVERTER_JSON)
+    implementation(Retrofit2.COROUTINES_ADAPTER)
+    implementation(Retrofit2.LOGGING_INTERCEPTOR)
 
     // Tests
     testImplementation(Tests.JUNIT)
