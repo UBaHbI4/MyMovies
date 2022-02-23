@@ -10,12 +10,9 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import softing.ubah4ukdev.mymovies.BuildConfig
 import softing.ubah4ukdev.mymovies.R
-import softing.ubah4ukdev.mymovies.databinding.MovieItemBinding
-import softing.ubah4ukdev.mymovies.domain.models.MoviesResponse
+import softing.ubah4ukdev.mymovies.databinding.ActorItemBinding
+import softing.ubah4ukdev.mymovies.domain.models.ActorsResponse
 import softing.ubah4ukdev.mymovies.utils.extensions.click
-import softing.ubah4ukdev.mymovies.utils.extensions.getColorByValue
-import softing.ubah4ukdev.mymovies.utils.extensions.releaseDateToString
-import kotlin.math.roundToInt
 
 /**
  *   Project: MyMovies
@@ -31,45 +28,30 @@ import kotlin.math.roundToInt
  *
  *   v1.0
  */
-class MovieViewHolder(
+class ActorViewHolder(
     view: View
 ) : RecyclerView.ViewHolder(view) {
 
-    private val viewBinding: MovieItemBinding by viewBinding()
+    private val viewBinding: ActorItemBinding by viewBinding()
 
-    fun bind(
-        movie: MoviesResponse.Movie,
-        delegate: MovieAdapter.Delegate?,
-        position: Int,
-        countItems: Int
-    ) {
+    fun bind(actor: ActorsResponse.Cast, delegate: ActorAdapter.Delegate?) {
         with(viewBinding) {
-            title.text = movie.title
-            val popular = (movie.voteAverage * MULTIPLIER).roundToInt()
-            ratingProgress.setProgress(popular, true)
-            ratingValue.text = popular.toString()
-            ratingProgress.setIndicatorColor(getColorByValue(popular))
-            release.text = releaseDateToString(movie.releaseDate)
+            name.text = actor.name
+            character.text = actor.character
             Glide.with(poster)
-                .load(BuildConfig.MOVIE_POSTER_PATH.plus(movie.posterPath))
+                .load(BuildConfig.MOVIE_POSTER_PATH.plus(actor.profilePath))
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(IMAGE_RADIUS)))
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .transition(DrawableTransitionOptions().crossFade(DELAY))
                 .placeholder(R.drawable.ic_no_image)
                 .error(R.drawable.ic_no_image)
                 .into(poster)
-            viewBinding.root.click { delegate?.onItemClick(movie) }
-            if (countItems > ZERO_VALUE && position == countItems - FIVE_VALUE) {
-                delegate?.getMoreMovies()
-            }
+            viewBinding.root.click { delegate?.onItemClick(actor) }
         }
     }
 
     companion object {
-        private const val MULTIPLIER = 10
-        private const val IMAGE_RADIUS = 18
-        private const val ZERO_VALUE = 0
-        private const val FIVE_VALUE = 5
         private const val DELAY = 800
+        private const val IMAGE_RADIUS = 18
     }
 }

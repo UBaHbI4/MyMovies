@@ -17,10 +17,13 @@ import softing.ubah4ukdev.mymovies.data.repository.MovieRepositoryImpl
 import softing.ubah4ukdev.mymovies.data.repository.datasource.RemoteDataSource
 import softing.ubah4ukdev.mymovies.data.repository.datasource.RemoteDataSourceImpl
 import softing.ubah4ukdev.mymovies.domain.repository.MovieRepository
+import softing.ubah4ukdev.mymovies.domain.usecases.GetActorsUseCase
+import softing.ubah4ukdev.mymovies.domain.usecases.GetMovieDetailByIdUseCase
 import softing.ubah4ukdev.mymovies.domain.usecases.GetMoviesTopRatedUseCase
 import softing.ubah4ukdev.mymovies.ui.detail.DetailViewModel
 import softing.ubah4ukdev.mymovies.ui.movies.MoviesViewModel
 import softing.ubah4ukdev.mymovies.ui.settings.SettingsViewModel
+import java.time.Duration
 
 /**
  *   Project: MyMovies
@@ -46,7 +49,10 @@ object Di {
         }
 
         viewModel() {
-            DetailViewModel()
+            DetailViewModel(
+                getMovieDetailByIdUseCase = get(),
+                getActorsUseCase = get()
+            )
         }
 
         viewModel() {
@@ -69,6 +75,10 @@ object Di {
                 .baseUrl(BuildConfig.MOVIE_BASE_URL)
                 .client(
                     OkHttpClient.Builder()
+                        .callTimeout(Duration.ofSeconds(15))
+                        .connectTimeout(Duration.ofSeconds(15))
+                        .readTimeout(Duration.ofSeconds(15))
+                        .writeTimeout(Duration.ofSeconds(15))
                         .addInterceptor(interceptor = get())
                         .addInterceptor(HttpLoggingInterceptor().apply {
                             level = HttpLoggingInterceptor.Level.BODY
@@ -102,6 +112,14 @@ object Di {
     fun useCasesModule() = module {
         factory<GetMoviesTopRatedUseCase> {
             GetMoviesTopRatedUseCase(repository = get())
+        }
+
+        factory<GetMovieDetailByIdUseCase> {
+            GetMovieDetailByIdUseCase(repository = get())
+        }
+
+        factory<GetActorsUseCase> {
+            GetActorsUseCase(repository = get())
         }
     }
 

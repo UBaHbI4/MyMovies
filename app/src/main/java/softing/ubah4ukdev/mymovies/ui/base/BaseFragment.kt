@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import softing.ubah4ukdev.mymovies.domain.AppState
 import softing.ubah4ukdev.mymovies.domain.IAppState
+import softing.ubah4ukdev.mymovies.ui.ToolbarListener
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -39,7 +41,20 @@ abstract class BaseFragment<VB : ViewBinding>(
      * Инициализация подписок
      */
     abstract fun initObservers()
-    abstract fun renderData(result: IAppState)
+    protected fun renderData(result: IAppState) {
+        when (result) {
+            is AppState.Error -> {
+                showLoading(false)
+                showError(result.error)
+            }
+            is AppState.Loading -> showLoading(true)
+            is AppState.Success<*> -> renderSuccess(result)
+        }
+    }
+
+    abstract fun renderSuccess(result: AppState.Success<*>)
+    abstract fun showLoading(isShow: Boolean)
+    abstract fun showError(throwable: Throwable)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,5 +79,9 @@ abstract class BaseFragment<VB : ViewBinding>(
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    protected fun showToolBar(visible: Boolean) {
+        (requireActivity() as ToolbarListener).showToolBar(visible)
     }
 }

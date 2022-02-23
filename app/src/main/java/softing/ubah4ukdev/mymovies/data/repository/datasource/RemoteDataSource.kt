@@ -1,6 +1,8 @@
 package softing.ubah4ukdev.mymovies.data.repository.datasource
 
 import softing.ubah4ukdev.mymovies.domain.AppState
+import softing.ubah4ukdev.mymovies.domain.models.ActorsResponse
+import softing.ubah4ukdev.mymovies.domain.models.MovieResponse
 import softing.ubah4ukdev.mymovies.domain.models.MoviesResponse
 
 /**
@@ -19,4 +21,6 @@ import softing.ubah4ukdev.mymovies.domain.models.MoviesResponse
  */
 interface RemoteDataSource {
     suspend fun getMoviesTopRated(adult: Boolean, page: Int): AppState<MoviesResponse>
+    suspend fun getMovieDetailById(movieId: Int): AppState<MovieResponse>
+    suspend fun getActorsList(movieId: Int): AppState<ActorsResponse>
 }
